@@ -1,8 +1,19 @@
 "use client"
 
 import { useForm } from 'react-hook-form';
-import { Form } from '@/components/ui/form';
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { UserValidation } from '@/lib/validations/user';
+import * as z from 'zod';
 
 interface Props {
   user: {
@@ -19,11 +30,42 @@ interface Props {
 const AccountProfile = ({ user, btnTitle }: Props) => {
 
   const form = useForm({
-    resolver: zodResolver()
+    resolver: zodResolver(UserValidation),
+    defaultValues: {
+      profile_photo: '',
+      name: '',
+      username: '',
+      bio: ''
+    }
   })
+
+  function onSubmit(values: z.infer<typeof UserValidation>) {
+
+    console.log(values)
+  }
+
+
+
   return (
-    <Form>
-      
+    <Form {...form}>
+      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+        <FormField 
+          control={form.control}
+          name='username'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder='shadcn' {...field}/>
+              </FormControl>
+              <FormDescription>
+                This is public
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </form>
     </Form>
   )
 }
