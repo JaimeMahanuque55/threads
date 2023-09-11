@@ -18,6 +18,7 @@ import * as z from 'zod';
 import { Button } from '../ui/button';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
+import { isBase64Image } from '@/lib/utils';
 
 interface Props {
   user: {
@@ -67,8 +68,9 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   }
 
   function onSubmit(values: z.infer<typeof UserValidation>) {
+    const blob = values.profile_photo;
 
-    console.log(values)
+    const hasImageChanged = isBase64Image(blob);
   }
 
 
