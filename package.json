@@ -22,6 +22,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "lucide-react": "^0.265.0",
+    "mongoose": "^7.5.1",
     "mongose": "^0.0.2-security",
     "next": "13.4.13",
     "postcss": "8.4.27",
